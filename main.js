@@ -1,9 +1,12 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+require('dotenv').config();
 
+
+console.log(process.env.session_path)
 const client = new Client({
     authStrategy: new LocalAuth({
-        dataPath: '/Users/mrx/Programming/WEB/Backend/JS/waweb/session'
+        dataPath: process.env.session_path
     })
 
 });
@@ -21,7 +24,7 @@ client.on('message_create', async (message) => {
         var responseMsg = "dari " + user.name + "Nomor : " + user.id.user + " latitude : " + message.location.latitude + " longitude : " + message.location.longitude
         
         console.log(responseMsg);
-        const url = 'https://script.google.com/macros/s/AKfycbxcGeZLdlZCsmBIdlHZ7h-2n0w6qrV_Cvf7qEHmkDDUb4dbbEKG7xr0Oc2Ej0TqZWxYmg/exec';
+        const url = process.env.sheet_url;
 
         const data = {
             Nama: user.name,
